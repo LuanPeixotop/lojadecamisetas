@@ -1,52 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="utf8">
-    <title>Produtos</title>
-  </head>
-  <body>
-    <%= nav_bar brand: "Gado's clothes", brand_link: root_url %>
-    <div class="container">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @produtos_por_nome.each do |produto| %>
-            <tr>
-              <td><%= produto.nome %></td>
-              <td><%= produto.descricao %></td>
-              <td><%= produto.preco %></td>
-              <td><%= produto.quantidade %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @produtos_por_preco.each do |produto| %>
-            <tr>
-              <td><%= produto.nome %></td>
-              <td><%= produto.descricao %></td>
-              <td><%= produto.preco %></td>
-              <td><%= produto.quantidade %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </body>
-</html>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @produtos_por_nome.each do |produto| %>
+      <tr>
+        <td><%= produto.nome %></td>
+        <td><%= produto.descricao %></td>
+        <td><%= produto.preco %></td>
+        <td><%= produto.quantidade %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @produtos_por_preco.each do |produto| %>
+      <tr>
+        <td><%= produto.nome %></td>
+        <td><%= produto.descricao %></td>
+        <td><%= produto.preco %></td>
+        <td><%= produto.quantidade %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

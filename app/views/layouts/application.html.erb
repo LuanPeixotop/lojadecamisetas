@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
-    <title>Lojadecamisetas</title>
+    <title>Gado's clothes</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= nav_bar brand: "Gado's clothes", brand_link: root_url %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
