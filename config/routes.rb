@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
+  resources :produto, only: [:create, :destroy, :new]
   root "produtos#index"
-  get "/produtos/new" => "produtos#new"
-  post "/produtos" => "produtos#create"
 end
