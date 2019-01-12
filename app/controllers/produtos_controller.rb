@@ -8,5 +8,6 @@ class ProdutosController < ApplicationController
   def create
     newProduto = params.require(:produto).permit :nome, :descricao, :quantidade, :preco
     Produto.create newProduto
+    redirect_to root_path
   end
 end
