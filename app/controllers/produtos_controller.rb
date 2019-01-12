@@ -10,4 +10,10 @@ class ProdutosController < ApplicationController
     Produto.create newProduto
     redirect_to root_path
   end
+
+  def destroy
+    produto_id = params[:id]
+    produto.destroy produto_id
+    redirect_to root_path
+  end
 end
