@@ -12,7 +12,7 @@ class ProdutosController < ApplicationController
 
   def destroy
     produto_id = params[:id]
-    produto.destroy produto_id
+    Produto.destroy produto_id
     redirect_to root_path
   end
 end
