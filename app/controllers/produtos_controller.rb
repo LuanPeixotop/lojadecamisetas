@@ -6,10 +6,20 @@ class ProdutosController < ApplicationController
     end
   end
 
+  def new 
+    @novo_produto = Produto.new
+  end
+
   def create
-    newProduto = params.require(:produto).permit :nome, :descricao, :quantidade, :preco
-    Produto.create newProduto
-    redirect_to root_path
+    valores = params.require(:produto).permit :nome, :descricao, :quantidade, :preco
+    @novo_produto = Produto.new valores
+    
+    if @novo_produto.save
+      flash[:notice] = "Produto salvo com sucesso!"
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def destroy
