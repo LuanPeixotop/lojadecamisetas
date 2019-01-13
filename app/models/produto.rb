@@ -1,3 +1,4 @@
 class Produto < ApplicationRecord
-    validates_presence_of :nome, :descricao, :quantidade, :preco
+    validates :nome, presence: true, uniqueness: { case_sensitive: false }, length: {minimum: 4}
+    validates_presence_of :descricao, :quantidade, :preco
 end
