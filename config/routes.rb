@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  resources :produtos, only: [:create, :destroy, :new]
   root "produtos#index"
+  resources :produtos, only: [:create, :destroy, :new]
+  get "/produtos/busca" => "produtos#busca", as: :busca_produto
 end
