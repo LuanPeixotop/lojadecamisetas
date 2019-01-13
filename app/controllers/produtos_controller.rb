@@ -26,7 +26,7 @@ class ProdutosController < ApplicationController
     produto_id = params[:id]
     Produto.destroy produto_id
     flash[:notice] = "Produto removido com sucesso!"
-    redirect_to root_path
+    redirect_to request.referrer
   end
 
   def busca
