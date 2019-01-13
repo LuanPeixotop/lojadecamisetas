@@ -1,7 +1,7 @@
 class ProdutosController < ApplicationController
 
   def index
-    if not @produtos
+    if not @produtos.present?
       @produtos = Produto.order(:nome)
     end
   end
