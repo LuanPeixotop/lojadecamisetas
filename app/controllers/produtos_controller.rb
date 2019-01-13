@@ -1,7 +1,9 @@
 class ProdutosController < ApplicationController
 
   def index
-    @produtos_por_nome = Produto.order(:nome)
+    if not @produtos_por_nome
+      @produtos_por_nome = Produto.order(:nome)
+    end
   end
 
   def create
@@ -20,5 +22,7 @@ class ProdutosController < ApplicationController
     @nome_produto_buscado = params[:nome]
     @produtos_buscado = Produto.where "nome like ?", "%#{@nome_produto_buscado}%"
     @produtos_buscado = @produtos_buscado.order(:nome)
+    @produtos_por_nome = @produtos_buscado
+    render :index
   end
 end
