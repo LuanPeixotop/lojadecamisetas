@@ -13,9 +13,11 @@
 
     <%= nav_bar brand: "Gado's clothes", brand_link: root_url do %>
       <%= form_tag busca_produto_path, method: :get, class: "navbar-form navbar-right" do %>
+        <%= hidden_field_tag :column, params[:column] %>
+        <%= hidden_field_tag :direction, params[:direction] %>
         <div class="form-group">
           <%= text_field_tag :nome, @nome_produto_buscado, class:"form-control" %>
-          <%= button_to "Buscar", nil, class: "btn btn-default"%>  
+          <%= button_to "Buscar", nil, method: :get, class: "btn btn-default"%>  
         </div>
       <% end %>
     <% end %>

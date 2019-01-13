@@ -1,8 +1,8 @@
 class ProdutosController < ApplicationController
-
+  helper_method :sort_column, :sort_direction
   def index
     if not @produtos.present?
-      @produtos = Produto.order(:nome)
+      @produtos = Produto.order("#{sort_column} #{sort_direction}")
     end
   end
 
@@ -32,8 +32,22 @@ class ProdutosController < ApplicationController
   def busca
     @nome_produto_buscado = params[:nome]
     @produtos_buscado = Produto.where "nome like ?", "%#{@nome_produto_buscado}%"
-    @produtos_buscado = @produtos_buscado.order(:nome)
     @produtos = @produtos_buscado
+    @produtos = @produtos.order("#{sort_column} #{sort_direction}")
     render :index
   end
+
+  private
+  def sortable_columns
+    ["nome", "preco"]
+  end
+
+  def sort_column
+    sortable_columns.include?(params[:column]) ? params[:column] : "nome"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
 end
