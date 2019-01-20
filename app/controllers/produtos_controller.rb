@@ -8,11 +8,13 @@ class ProdutosController < ApplicationController
 
   def new 
     @novo_produto = Produto.new
+    @departamentos = Departamento.all
   end
 
   def create
-    valores = params.require(:produto).permit :nome, :descricao, :quantidade, :preco
+    valores = params.require(:produto).permit :nome, :descricao, :quantidade, :preco, :departamento_id
     @novo_produto = Produto.new valores
+    @departamentos = Departamento.all
     
     if @novo_produto.save
       flash[:notice] = "Produto salvo com sucesso!"

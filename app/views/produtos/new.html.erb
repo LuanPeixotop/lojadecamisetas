@@ -10,12 +10,17 @@
 <%= form_for @novo_produto do |f| %>
     <div class="form-group">
         <%= f.label :nome, "Nome:" %>
-        <%= f.text_field :nome, class: "form-control" %>
+        <%= f.text_field :nome, class: "form-control", required: true %>
     </div>
 
     <div class="form-group">
         <%= f.label :descricao, "Descrição:" %>
         <%= f.text_area :descricao, rows: 3, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :departamento_id %>
+        <%= f.collection_select :departamento_id, @departamentos, :id, :nome, {:prompt => 'Selecione o departamento'}, class: "form-control", required: true %>
     </div>
 
     <div class="form-inline">
