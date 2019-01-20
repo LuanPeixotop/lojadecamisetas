@@ -1,8 +1,12 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:notice] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
 
 <h1>Departamentos</h1>
 
-<table>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Nome</th>
@@ -14,9 +18,9 @@
     <% @departamentos.each do |departamento| %>
       <tr>
         <td><%= departamento.nome %></td>
-        <td><%= link_to 'Show', departamento %></td>
-        <td><%= link_to 'Edit', edit_departamento_path(departamento) %></td>
-        <td><%= link_to 'Destroy', departamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Exibir', departamento, class: "btn btn-default" %></td>
+        <td><%= link_to 'Editar', edit_departamento_path(departamento), class: "btn btn-default" %></td>
+        <td><%= link_to 'Remover', departamento, method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza que deseja remover #{departamento.nome}?" } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Departamento', new_departamento_path %>
+<%= link_to 'Novo Departamento', new_departamento_path %>

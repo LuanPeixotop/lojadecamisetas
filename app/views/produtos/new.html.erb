@@ -1,12 +1,16 @@
-<% @novo_produto.errors.full_messages.each do |message| %>
+<% if @novo_produto.errors.any? %>
     <div class="alert alert-danger" role="alert">
-        <%= message %>
+        <% @novo_produto.errors.full_messages.each do |message| %>
+            <%= message %>
+            </br>
+        <% end %>
     </div>
 <% end %>
+
 <%= form_for @novo_produto do |f| %>
     <div class="form-group">
         <%= f.label :nome, "Nome:" %>
-        <%= f.text_field :nome, class: "form-control", required: true %>
+        <%= f.text_field :nome, class: "form-control" %>
     </div>
 
     <div class="form-group">
@@ -15,7 +19,6 @@
     </div>
 
     <div class="form-inline">
-    
         <div class="form-group">
             <%= f.label :quantidade, "Quantidade:" %>
             <%= f.number_field :quantidade, step: 1, class: "form-control", required: true %>
