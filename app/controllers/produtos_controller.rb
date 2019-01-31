@@ -1,5 +1,8 @@
 class ProdutosController < ApplicationController
   helper_method :sort_column, :sort_direction
+
+  before_action :set_produto, only: [:destroy]
+
   def index
     if not @produtos.present?
       @produtos = Produto.order("#{sort_column} #{sort_direction}")
@@ -8,38 +11,49 @@ class ProdutosController < ApplicationController
 
   def new 
     @novo_produto = Produto.new
-    @departamentos = Departamento.all
+    renderiza_new
   end
 
   def create
-    valores = params.require(:produto).permit :nome, :descricao, :quantidade, :preco, :departamento_id
-    @novo_produto = Produto.new valores
-    @departamentos = Departamento.all
-    
+    @novo_produto = Produto.new produto_params
+
     if @novo_produto.save
       flash[:notice] = "Produto salvo com sucesso!"
       redirect_to root_path
     else
-      render :new
+      renderiza_new
     end
   end
 
   def destroy
-    produto_id = params[:id]
-    Produto.destroy produto_id
+    set_produto
+    @produto.destroy
     flash[:notice] = "Produto removido com sucesso!"
     redirect_to request.referrer
   end
 
   def busca
-    @nome_produto_buscado = params[:nome]
-    @produtos_buscado = Produto.where "nome like ?", "%#{@nome_produto_buscado}%"
+    @produtos_buscado = Produto.where "nome like ?", "%#{params[:nome]}%"
     @produtos = @produtos_buscado
     @produtos = @produtos.order("#{sort_column} #{sort_direction}")
     render :index
   end
 
   private
+
+  def set_produto
+    @produto = Produto.find(params[:id])
+  end
+
+  def produto_params
+    params.require(:produto).permit :nome, :descricao, :quantidade, :preco, :departamento_id
+  end
+
+  def renderiza_new
+    @departamentos = Departamento.all
+    render :new
+  end
+  
   def sortable_columns
     ["nome", "preco"]
   end
