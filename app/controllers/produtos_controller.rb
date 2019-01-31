@@ -1,7 +1,7 @@
 class ProdutosController < ApplicationController
   helper_method :sort_column, :sort_direction
 
-  before_action :set_produto, only: [:destroy]
+  before_action :set_produto, only: [:edit, :update, :destroy]
 
   def index
     if not @produtos.present?
@@ -10,23 +10,35 @@ class ProdutosController < ApplicationController
   end
 
   def new 
-    @novo_produto = Produto.new
-    renderiza_new
+    @produto = Produto.new
+    renderiza :new
   end
 
   def create
-    @novo_produto = Produto.new produto_params
+    @produto = Produto.new produto_params
 
-    if @novo_produto.save
+    if @produto.save
       flash[:notice] = "Produto salvo com sucesso!"
       redirect_to root_path
     else
-      renderiza_new
+      renderiza :new
+    end
+  end
+
+  def edit
+    renderiza :edit
+  end
+
+  def update
+    if @produto.update produto_params
+      flash[:notice] = "Produto atualizado com sucesso!"
+      redirect_to root_path
+    else
+      renderiza :edit
     end
   end
 
   def destroy
-    set_produto
     @produto.destroy
     flash[:notice] = "Produto removido com sucesso!"
     redirect_to request.referrer
@@ -49,11 +61,11 @@ class ProdutosController < ApplicationController
     params.require(:produto).permit :nome, :descricao, :quantidade, :preco, :departamento_id
   end
 
-  def renderiza_new
+  def renderiza(view)
     @departamentos = Departamento.all
-    render :new
+    render view
   end
-  
+
   def sortable_columns
     ["nome", "preco"]
   end

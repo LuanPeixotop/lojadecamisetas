@@ -1,13 +1,13 @@
-<% if @novo_produto.errors.any? %>
+<% if @produto.errors.any? %>
     <div class="alert alert-danger" role="alert">
-        <% @novo_produto.errors.full_messages.each do |message| %>
+        <% @produto.errors.full_messages.each do |message| %>
             <%= message %>
             </br>
         <% end %>
     </div>
 <% end %>
 
-<%= form_for @novo_produto do |f| %>
+<%= form_for @produto do |f| %>
     <div class="form-group">
         <%= f.label :nome, "Nome:" %>
         <%= f.text_field :nome, class: "form-control", required: true %>

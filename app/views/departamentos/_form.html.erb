@@ -1,7 +1,7 @@
 <%= form_with(model: departamento, local: true) do |form| %>
   <% if @departamento.errors.any? %>
     <div class="alert alert-danger" role="alert">
-        <% @novo_produto.errors.full_messages.each do |message| %>
+        <% @produto.errors.full_messages.each do |message| %>
             <%= message %>
             </br>
         <% end %>
