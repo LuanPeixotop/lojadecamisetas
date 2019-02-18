@@ -1,15 +1,15 @@
 class ProdutosController < ApplicationController
   helper_method :sort_column, :sort_direction
 
-  before_action :set_produto, only: [:edit, :update, :destroy]
+  before_action :set_produto, only: %i[edit update destroy]
 
   def index
-    if not @produtos.present?
+    unless @produtos.present?
       @produtos = Produto.order("#{sort_column} #{sort_direction}")
     end
   end
 
-  def new 
+  def new
     @produto = Produto.new
     renderiza :new
   end
@@ -18,7 +18,7 @@ class ProdutosController < ApplicationController
     @produto = Produto.new produto_params
 
     if @produto.save
-      flash[:notice] = "Produto salvo com sucesso!"
+      flash[:notice] = 'Produto salvo com sucesso!'
       redirect_to root_path
     else
       renderiza :new
@@ -31,7 +31,7 @@ class ProdutosController < ApplicationController
 
   def update
     if @produto.update produto_params
-      flash[:notice] = "Produto atualizado com sucesso!"
+      flash[:notice] = 'Produto atualizado com sucesso!'
       redirect_to root_path
     else
       renderiza :edit
@@ -40,12 +40,12 @@ class ProdutosController < ApplicationController
 
   def destroy
     @produto.destroy
-    flash[:notice] = "Produto removido com sucesso!"
+    flash[:notice] = 'Produto removido com sucesso!'
     redirect_to request.referrer
   end
 
   def busca
-    @produtos_buscado = Produto.where "nome like ?", "%#{params[:nome]}%"
+    @produtos_buscado = Produto.where 'nome like ?', "%#{params[:nome]}%"
     @produtos = @produtos_buscado
     @produtos = @produtos.order("#{sort_column} #{sort_direction}")
     render :index
@@ -67,15 +67,14 @@ class ProdutosController < ApplicationController
   end
 
   def sortable_columns
-    ["nome", "preco"]
+    %w[nome preco]
   end
 
   def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : "nome"
+    sortable_columns.include?(params[:column]) ? params[:column] : 'nome'
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
-
 end

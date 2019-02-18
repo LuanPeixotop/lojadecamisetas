@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DepartamentosController < ApplicationController
-  before_action :set_departamento, only: [:show, :edit, :update, :destroy]
+  before_action :set_departamento, only: %i[show edit update destroy]
 
   # GET /departamentos
   # GET /departamentos.json
@@ -9,8 +11,7 @@ class DepartamentosController < ApplicationController
 
   # GET /departamentos/1
   # GET /departamentos/1.json
-  def show
-  end
+  def show; end
 
   # GET /departamentos/new
   def new
@@ -18,8 +19,7 @@ class DepartamentosController < ApplicationController
   end
 
   # GET /departamentos/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /departamentos
   # POST /departamentos.json
@@ -62,13 +62,14 @@ class DepartamentosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_departamento
-      @departamento = Departamento.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def departamento_params
-      params.require(:departamento).permit(:nome)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_departamento
+    @departamento = Departamento.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def departamento_params
+    params.require(:departamento).permit(:nome)
+  end
 end
