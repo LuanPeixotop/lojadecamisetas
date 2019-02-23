@@ -23,6 +23,15 @@
   <%= will_paginate @produtos, renderer: BootstrapPagination::Rails %>
 </div>
 <div>
+  Resultados por página:
+  <%= set_per_page_results 5 %>
+  <%= set_per_page_results 10 %>
+  <%= set_per_page_results 15 %>
+</div>
+<div>
+  <br/>
   <%=link_to "Criar Produto", new_produto_path, class:"btn btn-default"%>
   <%=link_to "Departamentos", departamentos_path, class:"btn btn-default"%>
 </div>
+<br/>
+<br/>

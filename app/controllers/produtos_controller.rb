@@ -1,12 +1,10 @@
 class ProdutosController < ApplicationController
+  
   helper_method :sort_column, :sort_direction
-
   before_action :set_produto, only: %i[edit update destroy]
 
   def index
-    unless @produtos.present?
-      @produtos = order_and_paginate(Produto.all)
-    end
+    @produtos = order_and_paginate(Produto.all) unless @produtos.present?
   end
 
   def new
@@ -66,7 +64,11 @@ class ProdutosController < ApplicationController
   end
 
   def order_and_paginate(produtos)
-    produtos.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 5)
+    if params[:per_page] != ''
+      produtos.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: params[:per_page])
+    else
+      produtos.order("#{sort_column} #{sort_direction}").paginate(page: params[:page])
+    end
   end
 
   def sortable_columns
