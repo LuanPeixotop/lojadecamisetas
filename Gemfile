@@ -70,3 +70,7 @@ gem 'twitter-bootstrap-rails'
 gem 'pry'
 
 gem 'rails-i18n'
+
+#For pagination
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'

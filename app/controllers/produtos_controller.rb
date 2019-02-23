@@ -5,7 +5,7 @@ class ProdutosController < ApplicationController
 
   def index
     unless @produtos.present?
-      @produtos = Produto.order("#{sort_column} #{sort_direction}")
+      @produtos = Produto.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 5)
     end
   end
 
@@ -46,8 +46,7 @@ class ProdutosController < ApplicationController
 
   def busca
     @produtos_buscado = Produto.where 'nome like ?', "%#{params[:nome]}%"
-    @produtos = @produtos_buscado
-    @produtos = @produtos.order("#{sort_column} #{sort_direction}")
+    @produtos = @produtos_buscado.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 5)
     render :index
   end
 

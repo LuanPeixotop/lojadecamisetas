@@ -19,5 +19,10 @@
     <%= render @produtos %>
   </tbody>
 </table>
-<%=link_to "Criar Produto", new_produto_path, class:"btn btn-default"%>
-<%=link_to "Departamentos", departamentos_path, class:"btn btn-default"%>
+<div>
+  <%= will_paginate @produtos, renderer: BootstrapPagination::Rails %>
+</div>
+<div>
+  <%=link_to "Criar Produto", new_produto_path, class:"btn btn-default"%>
+  <%=link_to "Departamentos", departamentos_path, class:"btn btn-default"%>
+</div>
