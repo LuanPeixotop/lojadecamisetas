@@ -5,7 +5,7 @@ class ProdutosController < ApplicationController
 
   def index
     unless @produtos.present?
-      @produtos = Produto.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 5)
+      @produtos = order_and_paginate(Produto.all)
     end
   end
 
@@ -30,7 +30,7 @@ class ProdutosController < ApplicationController
   end
 
   def update
-    if @produto.update produto_params
+    if @produto.update produto_paramsparams
       flash[:notice] = 'Produto atualizado com sucesso!'
       redirect_to root_path
     else
@@ -46,7 +46,7 @@ class ProdutosController < ApplicationController
 
   def busca
     @produtos_buscado = Produto.where 'nome like ?', "%#{params[:nome]}%"
-    @produtos = @produtos_buscado.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 5)
+    @produtos = order_and_paginate(@produtos_buscado)
     render :index
   end
 
@@ -63,6 +63,10 @@ class ProdutosController < ApplicationController
   def renderiza(view)
     @departamentos = Departamento.all
     render view
+  end
+
+  def order_and_paginate(produtos)
+    produtos.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 5)
   end
 
   def sortable_columns
