@@ -35,3 +35,6 @@
 
 # Ignore vscode config files
 .vscode/*
+
+# Ignore Gemfile Lock
+Gemfile.lock
