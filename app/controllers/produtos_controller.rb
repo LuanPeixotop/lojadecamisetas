@@ -55,7 +55,7 @@ class ProdutosController < ApplicationController
     @camisas_femininas_por_mes = @camisas_femininas.group_by_month(:data_de_lancamento).count
     @camisas_masculinas_e_femininas = Produto.where 'nome like ? or nome like ?', "%masculina%", "%feminina%"
     @camisas_masculinas_e_femininas_por_mes = @camisas_masculinas_e_femininas.group_by_month(:data_de_lancamento).count
-    @camisas_masculinas_e_femininas_por_mes_max = @camisas_masculinas_e_femininas_por_mes.max[1]
+    @camisas_masculinas_e_femininas_por_mes_max = @camisas_masculinas_e_femininas_por_mes.values.max
     render :graficos
   end
 

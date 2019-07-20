@@ -23,7 +23,7 @@
 
 <%= area_chart(series, {**options, theme: 'palette5'}) do %>
   <% x_annotation(value: ('2018-12-22'..'2019-03-20'), text: "Verão", color: 'yellow') %>
-  <% y_annotation(value: @camisas_masculinas_e_femininas_por_mes_max, text: "Valor máximo", color: 'magenta') %>
+  <% y_annotation(value: @camisas_masculinas_e_femininas_por_mes_max, text: "Venda Total Máxima", color: 'magenta') %>
   <% point_annotation(value: ['2018-10-07', 1], text: "Deu merda na produção", color: 'magenta') %>
 <% end %>
 
