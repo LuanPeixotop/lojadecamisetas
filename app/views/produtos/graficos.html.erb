@@ -1,0 +1,45 @@
+<h1>Gráficos dos lançamentos produtos</h1>
+​
+<% series = [
+  {name: "Masculinas", data: @camisas_masculinas_por_mes},
+  {name: "Femininas", data: @camisas_femininas_por_mes}
+] %>
+
+<% total_series = {
+  name: "Total", data: @camisas_masculinas_e_femininas_por_mes
+} %>
+​
+<% options = {
+  title: 'Lançamentos das camisas',
+  subtitle: 'Agrupado por Mês',
+  xtitle: 'Mês',
+  ytitle: 'Camisas Lançadas',
+  stacked: true
+} %>
+​
+<%= line_chart(series, options) %>
+
+<%= line_chart(series, {**options, theme: 'palette7', curve: 'stepline'}) %>
+
+<%= area_chart(series, {**options, theme: 'palette5'}) do %>
+  <% x_annotation(value: ('2018-12-22'..'2019-03-20'), text: "Verão", color: 'yellow') %>
+  <% y_annotation(value: @camisas_masculinas_e_femininas_por_mes_max, text: "Valor máximo", color: 'magenta') %>
+  <% point_annotation(value: ['2018-10-07', 1], text: "Deu merda na produção", color: 'magenta') %>
+<% end %>
+
+<%= bar_chart(series, {**options, xtitle: 'Camisas', ytitle: 'Mês', height: 800, theme: 'palette7'}) %>
+
+<%= combo_charts({**options, theme: 'palette4', stacked: false, data_labels: false}) do %>
+  <% line_chart(total_series) %>
+  <% area_chart(series.last) %>
+  <% column_chart(series.first) %>
+<% end %>
+
+<%= syncing_charts(chart: {toolbar: false}, height: 250, style: 'display: inline-block; width: 32%;') do %>
+  <% mixed_charts(theme: 'palette4', data_labels: false) do %>
+    <% line_chart({name: "Total", data: @camisas_masculinas_e_femininas_por_mes}) %>
+    <% area_chart({name: "Masculinas", data: @camisas_masculinas_por_mes}) %>
+  <% end %>
+  <% area_chart({name: "Masculinas", data: @camisas_masculinas_por_mes}, theme: 'palette6') %>
+  <% line_chart({name: "Femininas", data: @camisas_femininas_por_mes}, theme: 'palette8') %>
+<% end %>

@@ -19,6 +19,11 @@
     </div>
 
     <div class="form-group">
+        <%= f.label :data_de_lancamento, "Data de Lançamento:" %>
+        <%= f.date_field :data_de_lancamento, as: :date, value: f.object.try(:strftime,"%d/%m/%Y"), class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
         <%= f.label :departamento_id %>
         <%= f.collection_select :departamento_id, @departamentos, :id, :nome, {:prompt => 'Selecione o departamento'}, class: "form-control", required: true %>
     </div>

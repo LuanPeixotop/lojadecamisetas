@@ -4,6 +4,7 @@
   <td><%= produto.departamento.nome %></td>
   <td><%= produto.preco %></td>
   <td><%= produto.quantidade %></td>
+  <td><%= produto.data_de_lancamento.try(:strftime,"%d/%m/%Y") %></td>
   <td><%= link_to "Alterar", edit_produto_path(produto.id), class: "btn btn-default" %></td>
   <td><%= button_to "Remover", produto, method: :delete, class: "btn btn-danger", data: {confirm: "Tem certeza que deseja remover #{produto.nome}?"}%></td>
 </tr>

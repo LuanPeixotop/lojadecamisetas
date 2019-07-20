@@ -48,6 +48,17 @@ class ProdutosController < ApplicationController
     render :index
   end
 
+  def graficos
+    @camisas_masculinas = Produto.where 'nome like ?', "%masculina%"
+    @camisas_masculinas_por_mes = @camisas_masculinas.group_by_month(:data_de_lancamento).count
+    @camisas_femininas = Produto.where 'nome like ?', "%feminina%"
+    @camisas_femininas_por_mes = @camisas_femininas.group_by_month(:data_de_lancamento).count
+    @camisas_masculinas_e_femininas = Produto.where 'nome like ? or nome like ?', "%masculina%", "%feminina%"
+    @camisas_masculinas_e_femininas_por_mes = @camisas_masculinas_e_femininas.group_by_month(:data_de_lancamento).count
+    @camisas_masculinas_e_femininas_por_mes_max = @camisas_masculinas_e_femininas_por_mes.max[1]
+    render :graficos
+  end
+
   private
 
   def set_produto
@@ -55,7 +66,7 @@ class ProdutosController < ApplicationController
   end
 
   def produto_params
-    params.require(:produto).permit :nome, :descricao, :quantidade, :preco, :departamento_id
+    params.require(:produto).permit :nome, :descricao, :quantidade, :preco, :departamento_id, :data_de_lancamento
   end
 
   def renderiza(view)
